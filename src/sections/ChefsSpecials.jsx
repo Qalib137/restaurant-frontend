@@ -12,7 +12,7 @@ function ChefsSpecials() {
         const fetchChefSpecials = async () => {
             try {
                 const response = await axios.get(
-                    "http://localhost:4000/api/foods"
+                    "https://restaurant-backend-production-19db.up.railway.app/api/foods"
                 );
 
                 const chefSpecials = response.data
@@ -80,7 +80,7 @@ function ChefsSpecials() {
                         className="max-w-sm mx-auto w-full block transform transition duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-amber-500/20 rounded-2xl"
                     >
                         <Dishcard
-                            image={`http://localhost:4000${dish.image}`}
+                            image={dish.image.startsWith("http") ? dish.image : `https://restaurant-backend-production-19db.up.railway.app${dish.image}`}
                             title={dish.name}
                             description={dish.description}
                             price={dish.price}

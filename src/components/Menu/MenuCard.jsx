@@ -18,13 +18,16 @@ function MenuCard({ food }) {
 
     return (
         <div className="group relative bg-linear-to-b from-zinc-900/80 to-zinc-950/90 border border-zinc-800/80 hover:border-amber-600/60 rounded-2xl overflow-hidden transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-amber-600/10 flex flex-col justify-between backdrop-blur-xl">
-
             <div className="absolute inset-0 bg-linear-to-tr from-amber-600/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
 
             <div>
                 <div className="relative h-64 overflow-hidden">
                     <img
-                        src={`http://localhost:4000${food.image}`}
+                        src={
+                            food.image?.startsWith("http")
+                                ? food.image
+                                : `https://restaurant-backend-35x5.onrender.com${food.image}`
+                        }
                         alt={food.name}
                         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                     />
@@ -81,7 +84,6 @@ function MenuCard({ food }) {
                     )}
                 </button>
             </div>
-
         </div>
     );
 }

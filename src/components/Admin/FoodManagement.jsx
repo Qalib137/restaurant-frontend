@@ -171,7 +171,7 @@ function FoodManagement() {
                                             <div className="flex items-center gap-3">
 
                                                 <img
-                                                    src={`http://localhost:4000${food.image}`}
+                                                   src={`https://restaurant-backend-35x5.onrender.com${food.image}`}
                                                     alt={food.name}
                                                     className="w-12 h-12 rounded-lg object-cover shrink-0"
                                                 />

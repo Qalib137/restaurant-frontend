@@ -5,7 +5,7 @@ import {
     validatePassword,
 } from "../../utils/authValidation";
 import { useState } from 'react';
-import axios from "axios"
+import api from "../../services/api";
 
 function RegisterForm() {
     const [formData, setFormData] = useState({
@@ -16,6 +16,7 @@ function RegisterForm() {
 
     const [errors, setErrors] = useState({})
     const navigate = useNavigate();
+    
     const handleChange = (e) => {
         setFormData({
             ...formData,
@@ -26,7 +27,6 @@ function RegisterForm() {
             ...errors,
             [e.target.id]: "",
         });
-
     };
 
     const handleSubmit = async (e) => {
@@ -47,15 +47,15 @@ function RegisterForm() {
         if (Object.keys(newErrors).length > 0) return;
 
         try {
-            const response = await axios.post(
-                "http://localhost:4000/auth/register",
+            const response = await api.post(
+                "/auth/register",
                 {
                     name: formData.name,
                     email: formData.email,
                     password: formData.password
                 }
             );
-console.log("REGISTER SUCCESS:", response.data);
+            console.log("REGISTER SUCCESS:", response.data);
             navigate("/login");
 
         } catch (error) {
@@ -64,37 +64,29 @@ console.log("REGISTER SUCCESS:", response.data);
     };
 
     return (
-
         <section className="flex w-full md:w-1/2 flex-col justify-center items-center p-6">
             <div className="w-full max-w-md">
-
                 <div className="mb-8 text-center md:text-left">
                     <h1 className="text-3xl font-bold text-gray-900">Sign up your account</h1>
                     <p className="mt-2 text-sm text-gray-500">Create an account to get started</p>
                 </div>
 
-
                 <form onSubmit={handleSubmit} className="flex flex-col gap-y-5">
-
                     <div className="flex flex-col gap-y-1.5">
                         <label htmlFor="name" className="text-sm font-medium text-gray-700">name</label>
                         <input
-
                             type="text"
                             id="name"
                             placeholder="John Doe"
                             className="w-full p-3 border border-gray-300 rounded-md outline-none focus:border-amber-600 focus:ring-1 focus:ring-amber-600 transition"
-
                             value={formData.name}
                             onChange={handleChange}
                         />
-
                         {errors.name && (
                             <p className="text-red-500 text-sm">
                                 {errors.name}
                             </p>
                         )}
-
                     </div>
 
                     <div className="flex flex-col gap-y-1.5">
@@ -104,7 +96,6 @@ console.log("REGISTER SUCCESS:", response.data);
                             type="email"
                             placeholder="hello@example.com"
                             className="w-full p-3 border border-gray-300 rounded-md outline-none focus:border-amber-600 focus:ring-1 focus:ring-amber-600 transition"
-
                             value={formData.email}
                             onChange={handleChange}
                         />
@@ -113,9 +104,7 @@ console.log("REGISTER SUCCESS:", response.data);
                                 {errors.email}
                             </p>
                         )}
-
                     </div>
-
 
                     <div className="flex flex-col gap-y-1.5">
                         <label htmlFor="password" className="text-sm font-medium text-gray-700">Password</label>
@@ -124,7 +113,6 @@ console.log("REGISTER SUCCESS:", response.data);
                             id="password"
                             placeholder="••••••••"
                             className="w-full p-3 border border-gray-300 rounded-md outline-none focus:border-amber-600 focus:ring-1 focus:ring-amber-600 transition"
-
                             value={formData.password}
                             onChange={handleChange}
                         />
@@ -133,10 +121,7 @@ console.log("REGISTER SUCCESS:", response.data);
                                 {errors.password}
                             </p>
                         )}
-
                     </div>
-
-
 
                     <button
                         type="submit"
@@ -146,24 +131,20 @@ console.log("REGISTER SUCCESS:", response.data);
                     </button>
                 </form>
 
-
                 <div className="mt-8 text-center border-t border-gray-100 pt-6">
                     <p className="text-sm text-gray-600">
-                        Do you  have an account?{" "}
-
+                        Do you have an account?{" "}
                         <Link
                             to="/login"
                             className="font-semibold text-amber-600 hover:underline hover:text-amber-700 transition-colors"
                         >
                             Login
                         </Link>
-
                     </p>
                 </div>
-
             </div>
         </section>
     )
 }
 
-export default RegisterForm
+export default RegisterForm;
