@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { FaArrowLeft } from "react-icons/fa";
-import api from "../services/api";
+import api, { BASE_URL } from "../services/api";
 import Icons from "../assets/icons/Icons";
 import PageHero from "../components/Common/PageHero.jsx";
 
@@ -200,7 +200,7 @@ function Orders() {
                                                                 <div className="w-16 h-16 sm:w-20 sm:h-20 shrink-0 rounded-xl overflow-hidden bg-[#141F1B]">
                                                                     {item.food?.image ? (
                                                                         <img
-                                                                            src={item.food.image.startsWith("http") ? item.food.image : `https://restaurant-backend-production-19db.up.railway.app${item.food.image}`}
+                                                                            src={item.food.image.startsWith("http") ? item.food.image : `${BASE_URL}${item.food.image}`}
                                                                             alt={item.food.name}
                                                                             className="w-full h-full object-cover"
                                                                         />

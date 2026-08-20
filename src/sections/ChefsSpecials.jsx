@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
 import { Link } from "react-router-dom";
+import api, { BASE_URL } from "../services/api";
 import Dishcard from "../components/Home/Dishcard";
 import hbg from "../assets/images/HeroSection.png";
 
@@ -11,9 +11,7 @@ function ChefsSpecials() {
     useEffect(() => {
         const fetchChefSpecials = async () => {
             try {
-                const response = await axios.get(
-                    "https://restaurant-backend-production-19db.up.railway.app/api/foods"
-                );
+                const response = await api.get("/api/foods");
 
                 const chefSpecials = response.data
                     .filter((dish) => dish.isChefSpecial === true)
@@ -44,7 +42,7 @@ function ChefsSpecials() {
     }
 
     return (
-        <div className="py-16">
+        <div className="py-16 relative">
 
             <div
                 className="absolute top-0 left-0 w-full h-[23vh] bg-no-repeat bg-top bg-cover pointer-events-none z-0"
@@ -57,7 +55,7 @@ function ChefsSpecials() {
                 }}
             />
 
-            <div className="text-center mb-14 mt-20">
+            <div className="text-center mb-14 mt-20 relative z-10">
 
                 <p className="text-amber-500 uppercase tracking-[0.3em] text-sm font-semibold mb-3">
                     Our Signature
@@ -71,7 +69,7 @@ function ChefsSpecials() {
 
             </div>
 
-            <div className="grid md:grid-cols-2 sm:grid-cols-1 lg:grid-cols-3 mx-20 gap-8">
+            <div className="grid md:grid-cols-2 sm:grid-cols-1 lg:grid-cols-3 mx-20 gap-8 relative z-10">
 
                 {chefSpecialMeals.map((dish) => (
                     <Link
@@ -80,7 +78,7 @@ function ChefsSpecials() {
                         className="max-w-sm mx-auto w-full block transform transition duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-amber-500/20 rounded-2xl"
                     >
                         <Dishcard
-                            image={dish.image.startsWith("http") ? dish.image : `https://restaurant-backend-production-19db.up.railway.app${dish.image}`}
+                            image={dish.image.startsWith("http") ? dish.image : `${BASE_URL}${dish.image}`}
                             title={dish.name}
                             description={dish.description}
                             price={dish.price}
