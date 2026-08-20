@@ -15,7 +15,7 @@ function Menu() {
         const getFoods = async () => {
             try {
                 
-                const response = await api.get("/api/foods"); 
+                const response = await axios.get("https://restaurant-backend-app-ljsz.onrender.com/api/foods");
                 setFoods(response.data);
             } catch (error) {
                 console.log(error);
