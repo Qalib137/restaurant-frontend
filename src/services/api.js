@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API_URL = import.meta.env.MODE === "production"
-    ? "https://restaurant-backend-35x5.onrender.com"
+    ? "https://restaurant-backend-app-ljsz.onrender.com"
     : "http://localhost:4000";
 
 const api = axios.create({
