@@ -11,11 +11,11 @@ function Menu() {
     const [selectedCategory, setSelectedCategory] = useState("all");
     const [searchTerm, setSearchTerm] = useState("");
 
-   useEffect(() => {
+  useEffect(() => {
         const getFoods = async () => {
             try {
-             
-                const response = await api.get("/foods"); 
+                
+                const response = await api.get("/api/foods"); 
                 setFoods(response.data);
             } catch (error) {
                 console.log(error);
