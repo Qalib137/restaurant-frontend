@@ -11,21 +11,19 @@ function Menu() {
     const [selectedCategory, setSelectedCategory] = useState("all");
     const [searchTerm, setSearchTerm] = useState("");
 
-  useEffect(() => {
-        const getFoods = async () => {
-            try {
-                
-                const response = await axios.get("https://restaurant-backend-app-ljsz.onrender.com/api/foods");
-                setFoods(response.data);
-            } catch (error) {
-                console.log(error);
-            } finally {
-                setLoading(false);
-            }
-        };
 
-        getFoods();
-    }, []);
+useEffect(() => {
+    const fetchMenu = async () => {
+        try {
+            
+            const response = await axios.get("https://restaurant-backend-app-ljsz.onrender.com/api/foods");
+            setFoods(response.data);
+        } catch (error) {
+            console.error("Menyu yuklenmedi:", error);
+        }
+    };
+    fetchMenu();
+}, []);
 
     const categories = ["all", "main", "burger", "pizza", "salad", "dessert", "drink"];
 
