@@ -1,6 +1,6 @@
 import hbg from "../assets/images/menu-hero-bg.png";
 import pbg from "../assets/images/menu-pattern-bg.png";
-
+import api from "../services/api";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import MenuCard from "../components/Menu/MenuCard";
@@ -11,19 +11,20 @@ function Menu() {
     const [selectedCategory, setSelectedCategory] = useState("all");
     const [searchTerm, setSearchTerm] = useState("");
 
-    useEffect(() => {
-        const fetchMenu = async () => {
-            try {
-                const response = await axios.get("https://restaurant-backend-app-ljsz.onrender.com/api/foods");
-                setFoods(response.data);
-            } catch (error) {
-                console.error("Menyu yuklenmedi:", error);
-            } finally {
-                setLoading(false);
-            }
-        };
-        fetchMenu();
-    }, []);
+  useEffect(() => {
+    const fetchMenu = async () => {
+        try {
+            
+            const response = await api.get("/api/foods");
+            setFoods(response.data);
+        } catch (error) {
+            console.error("Menyu yuklenmedi:", error);
+        } finally {
+            setLoading(false);
+        }
+    };
+    fetchMenu();
+}, []);
 
     const categories = ["all", "main", "burger", "pizza", "salad", "dessert", "drink"];
 
