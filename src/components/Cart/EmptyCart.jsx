@@ -15,10 +15,10 @@ function EmptyCart() {
 
       <div className="flex flex-wrap justify-center gap-4">
         <Link
-          to="/"
+          to="/orders"
           className="border border-[#AC8941] text-[#AC8941] hover:bg-[#AC8941] hover:text-black font-semibold px-8 py-3 rounded-xl transition-all duration-300 hover:scale-105 active:scale-95"
         >
-          Back to Home
+          View my orders
         </Link>
         <Link
           to="/Menu"
