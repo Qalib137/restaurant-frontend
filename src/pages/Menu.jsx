@@ -2,7 +2,7 @@ import hbg from "../assets/images/menu-hero-bg.png";
 import pbg from "../assets/images/menu-pattern-bg.png";
 
 import { useEffect, useState } from "react";
-import api from "../services/api";
+import axios from "axios";
 import MenuCard from "../components/Menu/MenuCard";
 
 function Menu() {
@@ -11,19 +11,19 @@ function Menu() {
     const [selectedCategory, setSelectedCategory] = useState("all");
     const [searchTerm, setSearchTerm] = useState("");
 
-
-useEffect(() => {
-    const fetchMenu = async () => {
-        try {
-            
-            const response = await axios.get("https://restaurant-backend-app-ljsz.onrender.com/api/foods");
-            setFoods(response.data);
-        } catch (error) {
-            console.error("Menyu yuklenmedi:", error);
-        }
-    };
-    fetchMenu();
-}, []);
+    useEffect(() => {
+        const fetchMenu = async () => {
+            try {
+                const response = await axios.get("https://restaurant-backend-app-ljsz.onrender.com/api/foods");
+                setFoods(response.data);
+            } catch (error) {
+                console.error("Menyu yuklenmedi:", error);
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchMenu();
+    }, []);
 
     const categories = ["all", "main", "burger", "pizza", "salad", "dessert", "drink"];
 
@@ -52,7 +52,6 @@ useEffect(() => {
                 backgroundSize: "100% auto"
             }}
         >
-
             <div
                 className="absolute top-0 left-0 w-full h-[140vh] bg-no-repeat bg-top bg-cover pointer-events-none z-0"
                 style={{
@@ -72,7 +71,6 @@ useEffect(() => {
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-3xl h-80 bg-amber-600/10 blur-3xl pointer-events-none rounded-full z-0" />
 
             <div className="max-w-7xl mx-auto relative z-10">
-
                 <div className="text-center mb-12">
                     <span className="text-amber-600 uppercase tracking-widest text-xs font-semibold border-b border-amber-600/30 pb-1">Haute Cuisine</span>
                     <h1 className="text-4xl md:text-6xl font-serif font-normal text-white mt-4 tracking-wide">Our Menu</h1>
@@ -137,9 +135,7 @@ useEffect(() => {
                         ))}
                     </div>
                 )}
-
             </div>
-
         </section>
     );
 }
